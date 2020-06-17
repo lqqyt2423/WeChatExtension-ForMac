@@ -24,6 +24,7 @@
 #import "YMNetWorkHelper.h"
 #import<CommonCrypto/CommonDigest.h>
 #import "YMIMContactsManager.h"
+#import "LQMessage.h"
 
 
 @implementation NSObject (WeChatHook)
@@ -337,6 +338,8 @@
     [self hook_OnSyncBatchAddMsgs:msgs isFirstSync:arg2];
     
     [msgs enumerateObjectsUsingBlock:^(AddMsg *addMsg, NSUInteger idx, BOOL * _Nonnull stop) {
+        // 处理消息
+        [[[LQMessage alloc] init] handle:addMsg];
         
         NSDate *now = [NSDate date];
         NSTimeInterval nowSecond = now.timeIntervalSince1970;
